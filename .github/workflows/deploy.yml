@@ -1,0 +1,50 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Inject MIME type headers for Turtle files
+        run: |
+          # GitHub Pages serves static files but won't set text/turtle by default.
+          # We use a _headers file (Netlify-style) — but since we're on GH Pages
+          # we generate a meta-redirect index.html per vocab path and keep the
+          # raw .ttl files accessible directly.
+          # Content negotiation is handled by the w3id.org .htaccess — clients
+          # that want Turtle are sent directly to the .ttl URL, browsers to /index.html.
+          echo "MIME injection step — no-op on GH Pages, handled by w3id redirects"
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs/
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

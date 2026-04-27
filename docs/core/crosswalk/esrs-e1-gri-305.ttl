@@ -1,0 +1,175 @@
+@prefix esg-c:    <https://w3id.org/esg/core/> .
+@prefix esrs:     <https://w3id.org/esg/esrs/> .
+@prefix gri:      <https://w3id.org/esg/gri/> .
+@prefix xwalk:    <https://w3id.org/esg/crosswalk/> .
+@prefix owl:      <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:      <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:     <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos:     <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcterms:  <http://purl.org/dc/terms/> .
+@prefix xsd:      <http://www.w3.org/2001/XMLSchema#> .
+@prefix sssom:    <https://w3id.org/sssom/> .
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Crosswalk: ESRS E1 (Climate change) ↔ GRI 305 (Emissions)
+#
+# Uses SSSOM (Simple Standard for Sharing Ontology Mappings) predicates
+# for machine-actionable mapping provenance.
+# https://mapping-commons.github.io/sssom/
+# ─────────────────────────────────────────────────────────────────────────────
+
+<https://w3id.org/esg/crosswalk/esrs-e1-gri-305>
+    a owl:Ontology ;
+    dcterms:title "Crosswalk: ESRS E1 ↔ GRI 305"@en ;
+    dcterms:description """Maps ESRS E1 (Climate change disclosures) disclosure requirements
+to their nearest equivalent in GRI 305 (Emissions). Covers Scope 1, 2 and 3
+gross GHG emission disclosures. Alignment confidence and boundary notes
+are included per mapping."""@en ;
+    dcterms:creator <https://w3id.org/esg/> ;
+    dcterms:created "2025-04-27"^^xsd:date ;
+    owl:versionInfo "0.1.0" ;
+    dcterms:license <https://creativecommons.org/licenses/by/4.0/> .
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# ESRS E1 disclosure stubs
+# ─────────────────────────────────────────────────────────────────────────────
+
+esrs:E1
+    a esg-c:ReportingFramework ;
+    rdfs:label "ESRS E1 — Climate change"@en ;
+    skos:notation "ESRS E1" ;
+    dcterms:isPartOf esg-c:ESRS .
+
+esrs:E1-6
+    a esg-c:ESGIndicator ;
+    rdfs:label "ESRS E1-6 — Gross Scopes 1, 2, 3 and Total GHG emissions"@en ;
+    skos:notation "ESRS E1-6" ;
+    esg-c:reportedUnder esg-c:ESRS ;
+    esg-c:hasUnit esg-c:TCO2E ;
+    rdfs:comment """Requires disclosure of gross Scope 1, Scope 2 (location- and market-based),
+and Scope 3 GHG emissions in tCO2e. Consolidation approach must be stated."""@en .
+
+esrs:E1-6-Scope1
+    a esg-c:ESGIndicator ;
+    rdfs:subPropertyOf esrs:E1-6 ;
+    rdfs:label "ESRS E1-6 — Gross Scope 1 GHG emissions"@en ;
+    esg-c:hasScope esg-c:Scope1 ;
+    esg-c:hasUnit esg-c:TCO2E ;
+    skos:notation "ESRS E1-6 S1" .
+
+esrs:E1-6-Scope2-LB
+    a esg-c:ESGIndicator ;
+    rdfs:label "ESRS E1-6 — Gross Scope 2 GHG emissions (location-based)"@en ;
+    esg-c:hasScope esg-c:Scope2LocationBased ;
+    esg-c:hasUnit esg-c:TCO2E ;
+    skos:notation "ESRS E1-6 S2-LB" .
+
+esrs:E1-6-Scope2-MB
+    a esg-c:ESGIndicator ;
+    rdfs:label "ESRS E1-6 — Gross Scope 2 GHG emissions (market-based)"@en ;
+    esg-c:hasScope esg-c:Scope2MarketBased ;
+    esg-c:hasUnit esg-c:TCO2E ;
+    skos:notation "ESRS E1-6 S2-MB" .
+
+esrs:E1-6-Scope3
+    a esg-c:ESGIndicator ;
+    rdfs:label "ESRS E1-6 — Gross Scope 3 GHG emissions"@en ;
+    esg-c:hasScope esg-c:Scope3 ;
+    esg-c:hasUnit esg-c:TCO2E ;
+    skos:notation "ESRS E1-6 S3" .
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# GRI 305 disclosure stubs
+# ─────────────────────────────────────────────────────────────────────────────
+
+gri:GRI305
+    a esg-c:ReportingFramework ;
+    rdfs:label "GRI 305 — Emissions"@en ;
+    skos:notation "GRI 305" ;
+    dcterms:isPartOf esg-c:GRI .
+
+gri:GRI305-1
+    a esg-c:ESGIndicator ;
+    rdfs:label "GRI 305-1 — Direct (Scope 1) GHG emissions"@en ;
+    skos:notation "GRI 305-1" ;
+    esg-c:reportedUnder esg-c:GRI ;
+    esg-c:hasScope esg-c:Scope1 ;
+    esg-c:hasUnit esg-c:TCO2E .
+
+gri:GRI305-2
+    a esg-c:ESGIndicator ;
+    rdfs:label "GRI 305-2 — Energy indirect (Scope 2) GHG emissions"@en ;
+    skos:notation "GRI 305-2" ;
+    esg-c:reportedUnder esg-c:GRI ;
+    esg-c:hasScope esg-c:Scope2 ;
+    esg-c:hasUnit esg-c:TCO2E ;
+    rdfs:comment "GRI 305-2 requires both location-based and market-based figures where available."@en .
+
+gri:GRI305-3
+    a esg-c:ESGIndicator ;
+    rdfs:label "GRI 305-3 — Other indirect (Scope 3) GHG emissions"@en ;
+    skos:notation "GRI 305-3" ;
+    esg-c:reportedUnder esg-c:GRI ;
+    esg-c:hasScope esg-c:Scope3 ;
+    esg-c:hasUnit esg-c:TCO2E .
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Mappings (SSSOM-style, serialised as RDF)
+# sssom:MappingSet + individual sssom:Mapping instances
+# ─────────────────────────────────────────────────────────────────────────────
+
+xwalk:esrs-e1-gri-305-mappingset
+    a sssom:MappingSet ;
+    sssom:mapping_set_id <https://w3id.org/esg/crosswalk/esrs-e1-gri-305> ;
+    sssom:mapping_set_version "0.1.0" ;
+    sssom:creator_id <https://w3id.org/esg/> ;
+    sssom:license <https://creativecommons.org/licenses/by/4.0/> ;
+    sssom:mapping_set_description "ESRS E1 to GRI 305 emission indicator mappings."@en .
+
+xwalk:map-s1
+    a sssom:Mapping ;
+    sssom:subject_id esrs:E1-6-Scope1 ;
+    sssom:predicate_id skos:closeMatch ;
+    sssom:object_id gri:GRI305-1 ;
+    sssom:mapping_justification sssom:MappingJustification_ManualMappingCuration ;
+    sssom:confidence "0.95"^^xsd:float ;
+    rdfs:comment """High confidence. Both require gross Scope 1 in tCO2e under GHG Protocol.
+Boundary difference: ESRS mandates explicit consolidation approach disclosure
+(equity share / operational control / financial control); GRI recommends it."""@en .
+
+xwalk:map-s2
+    a sssom:Mapping ;
+    sssom:subject_id esrs:E1-6-Scope2-LB ;
+    sssom:predicate_id skos:closeMatch ;
+    sssom:object_id gri:GRI305-2 ;
+    sssom:mapping_justification sssom:MappingJustification_ManualMappingCuration ;
+    sssom:confidence "0.90"^^xsd:float ;
+    rdfs:comment """ESRS requires both location-based AND market-based figures as separate disclosures.
+GRI 305-2 requests both where available. Map location-based ESRS figure to GRI 305-2
+with a note that market-based figure is mapped separately (xwalk:map-s2-mb)."""@en .
+
+xwalk:map-s2-mb
+    a sssom:Mapping ;
+    sssom:subject_id esrs:E1-6-Scope2-MB ;
+    sssom:predicate_id skos:closeMatch ;
+    sssom:object_id gri:GRI305-2 ;
+    sssom:mapping_justification sssom:MappingJustification_ManualMappingCuration ;
+    sssom:confidence "0.88"^^xsd:float ;
+    rdfs:comment """Market-based Scope 2. GRI 305-2 covers both methods under one disclosure;
+ESRS E1-6 treats them as distinct data points. Many automated systems conflate these —
+the distinction is financially material for organisations with renewable energy contracts."""@en .
+
+xwalk:map-s3
+    a sssom:Mapping ;
+    sssom:subject_id esrs:E1-6-Scope3 ;
+    sssom:predicate_id skos:closeMatch ;
+    sssom:object_id gri:GRI305-3 ;
+    sssom:mapping_justification sssom:MappingJustification_ManualMappingCuration ;
+    sssom:confidence "0.85"^^xsd:float ;
+    rdfs:comment """Scope 3 mapping is structurally equivalent but category coverage differs.
+ESRS E1-6 requires all 15 GHG Protocol categories where material; GRI 305-3 leaves
+category selection to the reporter. Downstream consumers must not assume full category
+parity between ESRS and GRI Scope 3 figures."""@en .

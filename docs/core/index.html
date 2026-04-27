@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ESG Core Vocabulary — w3id.org/esg/core/</title>
+  <link rel="alternate" type="text/turtle" href="index.ttl">
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 720px; margin: 3rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.7; }
+    h1 { font-size: 1.4rem; font-weight: 500; margin-bottom: 0.25rem; }
+    .ns { font-family: monospace; font-size: 0.9rem; color: #555; margin-bottom: 2rem; display: block; }
+    h2 { font-size: 1rem; font-weight: 500; margin-top: 2rem; border-bottom: 1px solid #eee; padding-bottom: 0.25rem; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.875rem; margin-top: 0.75rem; }
+    td, th { text-align: left; padding: 0.4rem 0.6rem; border-bottom: 1px solid #f0f0f0; }
+    th { font-weight: 500; color: #555; }
+    code { background: #f5f5f5; padding: 0.1em 0.4em; border-radius: 3px; font-size: 0.85em; }
+    a { color: #1a6fa8; }
+    footer { margin-top: 3rem; font-size: 0.8rem; color: #888; border-top: 1px solid #eee; padding-top: 1rem; }
+  </style>
+</head>
+<body>
+
+<h1>ESG Core Vocabulary</h1>
+<span class="ns">https://w3id.org/esg/core/</span>
+
+<p>Core OWL classes and properties for ESG data. Framework-neutral — concepts exist
+independently of any reporting standard.</p>
+
+<p>
+  <a href="index.ttl">Download Turtle</a> ·
+  <a href="https://github.com/j-u-s-t-s-e-m-a-n-t-i-c-s/esg-vocab/blob/main/ontology/esg-core.ttl">View source</a> ·
+  <a href="../">Back to namespace root</a>
+</p>
+
+<h2>Top-level classes</h2>
+<table>
+  <tr><th>URI</th><th>Label</th></tr>
+  <tr><td><code>esg-c:ESGDomain</code></td><td>ESG Domain</td></tr>
+  <tr><td><code>esg-c:Environmental</code></td><td>Environmental</td></tr>
+  <tr><td><code>esg-c:Social</code></td><td>Social</td></tr>
+  <tr><td><code>esg-c:Governance</code></td><td>Governance</td></tr>
+  <tr><td><code>esg-c:EmissionScope</code></td><td>Emission Scope</td></tr>
+  <tr><td><code>esg-c:Scope1</code></td><td>Scope 1 — Direct emissions</td></tr>
+  <tr><td><code>esg-c:Scope2</code></td><td>Scope 2 — Energy indirect emissions</td></tr>
+  <tr><td><code>esg-c:Scope2LocationBased</code></td><td>Scope 2 — Location-based method</td></tr>
+  <tr><td><code>esg-c:Scope2MarketBased</code></td><td>Scope 2 — Market-based method</td></tr>
+  <tr><td><code>esg-c:Scope3</code></td><td>Scope 3 — Other indirect emissions</td></tr>
+  <tr><td><code>esg-c:Scope3Category</code></td><td>Scope 3 Category (15 GHG Protocol categories)</td></tr>
+  <tr><td><code>esg-c:ESGIndicator</code></td><td>ESG Indicator</td></tr>
+  <tr><td><code>esg-c:ESGUnit</code></td><td>ESG Unit (QUDT subclass)</td></tr>
+  <tr><td><code>esg-c:ReportingFramework</code></td><td>Reporting Framework</td></tr>
+</table>
+
+<h2>Reporting frameworks defined</h2>
+<table>
+  <tr><th>Instance</th><th>Label</th><th>Wikidata</th></tr>
+  <tr><td><code>esg-c:ESRS</code></td><td>European Sustainability Reporting Standards</td><td><a href="https://www.wikidata.org/entity/Q117007762">Q117007762</a></td></tr>
+  <tr><td><code>esg-c:GRI</code></td><td>Global Reporting Initiative Standards</td><td><a href="https://www.wikidata.org/entity/Q938407">Q938407</a></td></tr>
+  <tr><td><code>esg-c:CSRD</code></td><td>Corporate Sustainability Reporting Directive</td><td><a href="https://www.wikidata.org/entity/Q113667134">Q113667134</a></td></tr>
+  <tr><td><code>esg-c:TCFD</code></td><td>Task Force on Climate-related Financial Disclosures</td><td><a href="https://www.wikidata.org/entity/Q28009025">Q28009025</a></td></tr>
+  <tr><td><code>esg-c:CDP</code></td><td>CDP Disclosure Framework</td><td><a href="https://www.wikidata.org/entity/Q1053693">Q1053693</a></td></tr>
+  <tr><td><code>esg-c:SFDR</code></td><td>Sustainable Finance Disclosure Regulation</td><td><a href="https://www.wikidata.org/entity/Q97645482">Q97645482</a></td></tr>
+  <tr><td><code>esg-c:EUTaxonomy</code></td><td>EU Taxonomy for Sustainable Activities</td><td><a href="https://www.wikidata.org/entity/Q97354954">Q97354954</a></td></tr>
+  <tr><td><code>esg-c:GHGProtocol</code></td><td>GHG Protocol Corporate Standard</td><td><a href="https://www.wikidata.org/entity/Q5533484">Q5533484</a></td></tr>
+</table>
+
+<footer>
+  <a href="https://w3id.org/esg/">w3id.org/esg/</a> ·
+  <a href="https://github.com/j-u-s-t-s-e-m-a-n-t-i-c-s/esg-vocab">GitHub</a> ·
+  CC BY 4.0
+</footer>
+
+</body>
+</html>

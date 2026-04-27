@@ -28,7 +28,7 @@ concepts. Includes QUDT unit bindings and Wikidata alignment."""@en ;
     dcterms:creator [
         a foaf:Organization ;
         foaf:name "JustSemantics" ;
-        foaf:homepage <https://justsemantics.dev>
+        foaf:homepage <https://justsemantics.de>
     ] ;
     dcterms:license <https://creativecommons.org/licenses/by/4.0/> ;
     dcterms:created "2025-04-27"^^xsd:date ;

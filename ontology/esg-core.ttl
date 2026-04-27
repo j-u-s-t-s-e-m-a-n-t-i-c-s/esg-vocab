@@ -1,0 +1,331 @@
+@prefix esg:     <https://w3id.org/esg/> .
+@prefix esg-c:   <https://w3id.org/esg/core/> .
+@prefix owl:     <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos:    <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix qudt:    <http://qudt.org/schema/qudt/> .
+@prefix unit:    <http://qudt.org/vocab/unit/> .
+@prefix qkdv:    <http://qudt.org/vocab/quantitykind/> .
+@prefix vann:    <http://purl.org/vocab/vann/> .
+@prefix foaf:    <http://xmlns.com/foaf/0.1/> .
+@prefix wd:      <http://www.wikidata.org/entity/> .
+@prefix schema:  <https://schema.org/> .
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Ontology declaration
+# ─────────────────────────────────────────────────────────────────────────────
+
+<https://w3id.org/esg/>
+    a owl:Ontology ;
+    dcterms:title "ESG Core Vocabulary"@en ;
+    dcterms:description """A framework-neutral semantic vocabulary for Environmental, Social
+and Governance (ESG) data. Provides a stable URI foundation and crosswalk-ready
+structure for aligning CSRD, ESRS, GRI, TCFD, CDP, SFDR and EU Taxonomy reporting
+concepts. Includes QUDT unit bindings and Wikidata alignment."""@en ;
+    dcterms:creator [
+        a foaf:Organization ;
+        foaf:name "JustSemantics" ;
+        foaf:homepage <https://justsemantics.dev>
+    ] ;
+    dcterms:license <https://creativecommons.org/licenses/by/4.0/> ;
+    dcterms:created "2025-04-27"^^xsd:date ;
+    owl:versionInfo "0.1.0" ;
+    vann:preferredNamespacePrefix "esg" ;
+    vann:preferredNamespaceUri "https://w3id.org/esg/" .
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Top-level ESG pillars
+# ─────────────────────────────────────────────────────────────────────────────
+
+esg-c:ESGDomain
+    a owl:Class ;
+    rdfs:label "ESG Domain"@en ;
+    rdfs:comment "Top-level classification of ESG reporting domains."@en ;
+    owl:sameAs wd:Q131130843 .
+
+esg-c:Environmental
+    a owl:Class ;
+    rdfs:subClassOf esg-c:ESGDomain ;
+    rdfs:label "Environmental"@en ;
+    skos:definition "Topics related to climate, emissions, energy, water, biodiversity and waste."@en ;
+    owl:sameAs wd:Q25099 .
+
+esg-c:Social
+    a owl:Class ;
+    rdfs:subClassOf esg-c:ESGDomain ;
+    rdfs:label "Social"@en ;
+    skos:definition "Topics related to labour practices, human rights, community impact and supply chain."@en ;
+    owl:sameAs wd:Q3783411 .
+
+esg-c:Governance
+    a owl:Class ;
+    rdfs:subClassOf esg-c:ESGDomain ;
+    rdfs:label "Governance"@en ;
+    skos:definition "Topics related to board structure, remuneration, anti-corruption and transparency."@en ;
+    owl:sameAs wd:Q187954 .
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Emission scope taxonomy
+# GHG Protocol canonical scopes, Wikidata-aligned
+# ─────────────────────────────────────────────────────────────────────────────
+
+esg-c:EmissionScope
+    a owl:Class ;
+    rdfs:subClassOf esg-c:Environmental ;
+    rdfs:label "Emission Scope"@en ;
+    skos:definition """Classification of greenhouse gas emissions by origin relative to the
+reporting organisation, as defined by the GHG Protocol Corporate Standard."""@en ;
+    owl:sameAs wd:Q111600231 .
+
+esg-c:Scope1
+    a owl:Class ;
+    rdfs:subClassOf esg-c:EmissionScope ;
+    rdfs:label "Scope 1 — Direct emissions"@en ;
+    skos:definition """Direct GHG emissions from sources owned or controlled by the reporting
+organisation (e.g. combustion in owned facilities, company-owned vehicles)."""@en ;
+    skos:notation "Scope1" ;
+    owl:sameAs wd:Q111600249 ;
+    rdfs:seeAlso <https://ghgprotocol.org/scope-1-and-2-guidance> .
+
+esg-c:Scope2
+    a owl:Class ;
+    rdfs:subClassOf esg-c:EmissionScope ;
+    rdfs:label "Scope 2 — Energy indirect emissions"@en ;
+    skos:definition """Indirect GHG emissions from the generation of purchased or acquired
+electricity, steam, heat or cooling consumed by the reporting organisation."""@en ;
+    skos:notation "Scope2" ;
+    owl:sameAs wd:Q111600255 ;
+    rdfs:seeAlso <https://ghgprotocol.org/scope-2-guidance> .
+
+esg-c:Scope2LocationBased
+    a owl:Class ;
+    rdfs:subClassOf esg-c:Scope2 ;
+    rdfs:label "Scope 2 — Location-based method"@en ;
+    skos:definition """Scope 2 calculated using average emission factors for the grid(s) where
+energy consumption occurs."""@en .
+
+esg-c:Scope2MarketBased
+    a owl:Class ;
+    rdfs:subClassOf esg-c:Scope2 ;
+    rdfs:label "Scope 2 — Market-based method"@en ;
+    skos:definition """Scope 2 calculated using contractual instruments such as energy attribute
+certificates (EACs), supplier-specific rates or residual mix factors."""@en .
+
+esg-c:Scope3
+    a owl:Class ;
+    rdfs:subClassOf esg-c:EmissionScope ;
+    rdfs:label "Scope 3 — Other indirect emissions"@en ;
+    skos:definition """All other indirect GHG emissions occurring in the value chain of the
+reporting organisation, including upstream and downstream activities."""@en ;
+    skos:notation "Scope3" ;
+    owl:sameAs wd:Q111600260 ;
+    rdfs:seeAlso <https://ghgprotocol.org/scope-3-standard> .
+
+# Scope 3 category taxonomy (GHG Protocol 15 categories)
+esg-c:Scope3Category
+    a owl:Class ;
+    rdfs:subClassOf esg-c:Scope3 ;
+    rdfs:label "Scope 3 Category"@en .
+
+esg-c:Scope3Cat01 a esg-c:Scope3Category ; rdfs:label "Cat. 1 — Purchased goods and services"@en ; skos:notation "S3C01" .
+esg-c:Scope3Cat02 a esg-c:Scope3Category ; rdfs:label "Cat. 2 — Capital goods"@en ; skos:notation "S3C02" .
+esg-c:Scope3Cat03 a esg-c:Scope3Category ; rdfs:label "Cat. 3 — Fuel- and energy-related activities"@en ; skos:notation "S3C03" .
+esg-c:Scope3Cat04 a esg-c:Scope3Category ; rdfs:label "Cat. 4 — Upstream transportation and distribution"@en ; skos:notation "S3C04" .
+esg-c:Scope3Cat05 a esg-c:Scope3Category ; rdfs:label "Cat. 5 — Waste generated in operations"@en ; skos:notation "S3C05" .
+esg-c:Scope3Cat06 a esg-c:Scope3Category ; rdfs:label "Cat. 6 — Business travel"@en ; skos:notation "S3C06" .
+esg-c:Scope3Cat07 a esg-c:Scope3Category ; rdfs:label "Cat. 7 — Employee commuting"@en ; skos:notation "S3C07" .
+esg-c:Scope3Cat08 a esg-c:Scope3Category ; rdfs:label "Cat. 8 — Upstream leased assets"@en ; skos:notation "S3C08" .
+esg-c:Scope3Cat09 a esg-c:Scope3Category ; rdfs:label "Cat. 9 — Downstream transportation and distribution"@en ; skos:notation "S3C09" .
+esg-c:Scope3Cat10 a esg-c:Scope3Category ; rdfs:label "Cat. 10 — Processing of sold products"@en ; skos:notation "S3C10" .
+esg-c:Scope3Cat11 a esg-c:Scope3Category ; rdfs:label "Cat. 11 — Use of sold products"@en ; skos:notation "S3C11" .
+esg-c:Scope3Cat12 a esg-c:Scope3Category ; rdfs:label "Cat. 12 — End-of-life treatment of sold products"@en ; skos:notation "S3C12" .
+esg-c:Scope3Cat13 a esg-c:Scope3Category ; rdfs:label "Cat. 13 — Downstream leased assets"@en ; skos:notation "S3C13" .
+esg-c:Scope3Cat14 a esg-c:Scope3Category ; rdfs:label "Cat. 14 — Franchises"@en ; skos:notation "S3C14" .
+esg-c:Scope3Cat15 a esg-c:Scope3Category ; rdfs:label "Cat. 15 — Investments"@en ; skos:notation "S3C15" .
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# ESG Indicator — the core measurement concept
+# (what Quentic calls "indicators" but with actual semantics attached)
+# ─────────────────────────────────────────────────────────────────────────────
+
+esg-c:ESGIndicator
+    a owl:Class ;
+    rdfs:label "ESG Indicator"@en ;
+    skos:definition """A quantitative or qualitative measure used to report on ESG performance.
+Binds a metric concept to a unit of measure, emission scope (if applicable),
+and one or more reporting framework disclosure references."""@en .
+
+esg-c:hasScope
+    a owl:ObjectProperty ;
+    rdfs:domain esg-c:ESGIndicator ;
+    rdfs:range  esg-c:EmissionScope ;
+    rdfs:label "has emission scope"@en .
+
+esg-c:hasUnit
+    a owl:ObjectProperty ;
+    rdfs:domain esg-c:ESGIndicator ;
+    rdfs:range  qudt:Unit ;
+    rdfs:label "has unit of measure"@en ;
+    skos:definition "Links an ESG indicator to its canonical QUDT unit."@en .
+
+esg-c:hasQuantityKind
+    a owl:ObjectProperty ;
+    rdfs:domain esg-c:ESGIndicator ;
+    rdfs:range  qudt:QuantityKind ;
+    rdfs:label "has quantity kind"@en .
+
+esg-c:reportedUnder
+    a owl:ObjectProperty ;
+    rdfs:domain esg-c:ESGIndicator ;
+    rdfs:range  esg-c:ReportingFramework ;
+    rdfs:label "reported under"@en ;
+    skos:definition "Links an indicator to the reporting framework(s) that require it."@en .
+
+esg-c:disclosureRef
+    a owl:DatatypeProperty ;
+    rdfs:domain esg-c:ESGIndicator ;
+    rdfs:range  xsd:string ;
+    rdfs:label "disclosure reference"@en ;
+    skos:definition "Framework-specific disclosure identifier (e.g. 'GRI 305-1', 'ESRS E1-6')."@en .
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# QUDT unit bindings — common ESG measurement units
+# Resolves the "Ein Liter Heizöl" problem at the vocabulary layer
+# ─────────────────────────────────────────────────────────────────────────────
+
+# Canonical CO2-equivalent unit
+esg-c:TCO2E
+    a esg-c:ESGUnit ;
+    rdfs:label "Metric tonne of CO₂ equivalent"@en ;
+    qudt:hasUnit unit:TON_Metric ;
+    skos:notation "tCO2e" ;
+    skos:definition "Standard unit for GHG emissions reporting under GHG Protocol and EU ESRS."@en ;
+    owl:sameAs wd:Q3095025 ;
+    rdfs:seeAlso unit:TON_Metric .
+
+esg-c:KgCO2E
+    a esg-c:ESGUnit ;
+    rdfs:label "Kilogram of CO₂ equivalent"@en ;
+    qudt:hasUnit unit:KiloGM ;
+    skos:notation "kgCO2e" .
+
+esg-c:ESGUnit
+    a owl:Class ;
+    rdfs:subClassOf qudt:Unit ;
+    rdfs:label "ESG Unit"@en ;
+    skos:definition "A unit of measure commonly used in ESG reporting, aligned to QUDT."@en .
+
+# Energy
+esg-c:KiloWattHour
+    a esg-c:ESGUnit ;
+    rdfs:label "Kilowatt-hour"@en ;
+    owl:sameAs unit:KiloW-HR ;
+    skos:notation "kWh" .
+
+esg-c:MegaWattHour
+    a esg-c:ESGUnit ;
+    rdfs:label "Megawatt-hour"@en ;
+    owl:sameAs unit:MegaW-HR ;
+    skos:notation "MWh" .
+
+esg-c:GigaJoule
+    a esg-c:ESGUnit ;
+    rdfs:label "Gigajoule"@en ;
+    owl:sameAs unit:GigaJ ;
+    skos:notation "GJ" .
+
+# Water
+esg-c:CubicMetre
+    a esg-c:ESGUnit ;
+    rdfs:label "Cubic metre"@en ;
+    owl:sameAs unit:M3 ;
+    skos:notation "m³" .
+
+esg-c:Megalitre
+    a esg-c:ESGUnit ;
+    rdfs:label "Megalitre"@en ;
+    owl:sameAs unit:MegaLIT ;
+    skos:notation "ML" .
+
+# Waste
+esg-c:MetricTonne
+    a esg-c:ESGUnit ;
+    rdfs:label "Metric tonne"@en ;
+    owl:sameAs unit:TON_Metric ;
+    skos:notation "t" .
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Reporting framework stubs
+# Full crosswalk modules live in /crosswalks/
+# ─────────────────────────────────────────────────────────────────────────────
+
+esg-c:ReportingFramework
+    a owl:Class ;
+    rdfs:label "Reporting Framework"@en ;
+    skos:definition "A recognised ESG disclosure standard or regulatory framework."@en .
+
+esg-c:ESRS
+    a esg-c:ReportingFramework ;
+    rdfs:label "European Sustainability Reporting Standards"@en ;
+    skos:altLabel "ESRS" ;
+    dcterms:publisher <https://www.efrag.org> ;
+    owl:sameAs wd:Q117007762 ;
+    rdfs:seeAlso <https://www.efrag.org/Activities/2105191406363055/Sustainability-reporting-standards> .
+
+esg-c:GRI
+    a esg-c:ReportingFramework ;
+    rdfs:label "Global Reporting Initiative Standards"@en ;
+    skos:altLabel "GRI" ;
+    dcterms:publisher <https://www.globalreporting.org> ;
+    owl:sameAs wd:Q938407 .
+
+esg-c:CSRD
+    a esg-c:ReportingFramework ;
+    rdfs:label "Corporate Sustainability Reporting Directive"@en ;
+    skos:altLabel "CSRD" ;
+    dcterms:publisher <https://eur-lex.europa.eu> ;
+    owl:sameAs wd:Q113667134 ;
+    rdfs:seeAlso <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32022L2464> .
+
+esg-c:TCFD
+    a esg-c:ReportingFramework ;
+    rdfs:label "Task Force on Climate-related Financial Disclosures"@en ;
+    skos:altLabel "TCFD" ;
+    dcterms:publisher <https://www.fsb-tcfd.org> ;
+    owl:sameAs wd:Q28009025 .
+
+esg-c:CDP
+    a esg-c:ReportingFramework ;
+    rdfs:label "CDP Disclosure Framework"@en ;
+    skos:altLabel "CDP" ;
+    dcterms:publisher <https://www.cdp.net> ;
+    owl:sameAs wd:Q1053693 .
+
+esg-c:SFDR
+    a esg-c:ReportingFramework ;
+    rdfs:label "Sustainable Finance Disclosure Regulation"@en ;
+    skos:altLabel "SFDR" ;
+    dcterms:publisher <https://eur-lex.europa.eu> ;
+    owl:sameAs wd:Q97645482 .
+
+esg-c:EUTaxonomy
+    a esg-c:ReportingFramework ;
+    rdfs:label "EU Taxonomy for Sustainable Activities"@en ;
+    skos:altLabel "EU Taxonomy" ;
+    dcterms:publisher <https://eur-lex.europa.eu> ;
+    owl:sameAs wd:Q97354954 .
+
+esg-c:GHGProtocol
+    a esg-c:ReportingFramework ;
+    rdfs:label "GHG Protocol Corporate Standard"@en ;
+    skos:altLabel "GHG Protocol" ;
+    dcterms:publisher <https://ghgprotocol.org> ;
+    owl:sameAs wd:Q5533484 .
